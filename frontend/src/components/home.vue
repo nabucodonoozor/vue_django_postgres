@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h1>TELA INICIAL DO SISTEMA!!!</h1>
+  <div>    
     <Department />
   </div>
 </template>

@@ -1,6 +1,14 @@
 <template>
   <div id="app">
     <vm-card-content class="app-card-principal">
+      <h1>Teste VUE, Django e Postgres</h1>
+      <nav id="nav-principal">
+        <ul>
+          <li><router-link :to="{ name: 'department' }"> Departamentos</router-link></li>
+          <li><router-link :to="{ name: 'employee' }">Empregados</router-link></li>
+          
+        </ul>
+      </nav>
       <Home />   
     </vm-card-content>
   </div>
@@ -24,23 +32,6 @@ export default {
 
   },
   mounted() {
-    
-    console.log(`user_id: ${this.userId}`)
-
-    // disparamos um comunicação inicial.
-    // o backend fará algumas verificações e devolverá uma frase de boas vindas...
-    // let mensagem = {
-    //       sender: this.userId ,
-    //       message: 'inicializa_ai_mirtres'
-    //     }
-    
-    // let opcoes_mensagem = {
-    //   initial: true,
-    //   mensagem
-    // }
-
-    // this.$store.commit("insere_user_id", this.userId)
-    // this.$store.dispatch("message_sending", opcoes_mensagem)
 
   }
 }
