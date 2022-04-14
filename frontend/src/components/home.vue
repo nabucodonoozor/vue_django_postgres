@@ -1,15 +1,14 @@
 <template>
   <div>    
-    <Department />
+    <h2>Tela inicial...</h2>
   </div>
 </template>
 
 <script>
-import Department from './department.vue'
+
 
 export default {
   components: {
-    Department,
   }
 }
 </script>
