@@ -1,0 +1,3 @@
+usuario: root
+email: teste@curso.com
+senha: 12345678

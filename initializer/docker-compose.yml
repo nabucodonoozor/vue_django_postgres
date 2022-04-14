@@ -1,0 +1,77 @@
+version: "3"
+
+services:
+  
+  curso-administracao-postgres-compose:
+    build:
+      context: .
+      dockerfile: ./curso_postgres.dockerfile
+    container_name: curso_administracao_postgres_bd
+    ports:
+      - "5050:5432"
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      # - postgres:/var/lib/postgresql/data
+      - /home/brav/Documentos/Cursos/2022/Vue_vuex_Django/backend/BD/BDPostgres:/var/lib/postgresql/data
+      # - ./BD_BKP/:/home
+    networks:
+      curso-administracao-network:
+        ipv4_address: 172.30.0.3
+  
+  curso-administracao-pgadmin-compose:
+    build:
+      context: .
+      dockerfile: ./curso_pgadmin.dockerfile
+    container_name: curso_administracao_pgadmin
+    environment:
+      USER_PASSWORD: "12345678"
+      PGADMIN_DEFAULT_EMAIL: "nabucodonozor2@gmail.com"
+      PGADMIN_DEFAULT_PASSWORD: "12345678"
+    ports:
+      - "8000:80"
+    depends_on:
+      - curso-administracao-postgres-compose
+    networks:
+      curso-administracao-network:
+        ipv4_address: 172.30.0.4
+  
+  curso-administracao-backend-compose:
+    build:
+      context: .
+      dockerfile: ./curso_backend.dockerfile
+    container_name: curso_administracao_django
+    volumes:
+      - ../backend/curso_administracao:/curso_administracao
+    ports:
+      - "9000:8000"
+    depends_on:
+      - curso-administracao-postgres-compose
+    networks:
+      curso-administracao-network:
+        ipv4_address: 172.30.0.2
+  
+  curso-frontend-compose:
+    build:
+      context: .
+      dockerfile: ./curso_frontend.dockerfile
+    container_name: curso_administracao_frontend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ../frontend/:/app/
+      - /etc/localtime:/etc/localtime:ro
+    command: ./initializer_frontend.sh
+    depends_on:
+      - curso-administracao-backend-compose
+    networks:
+      curso-administracao-network:
+        ipv4_address: 172.30.0.5
+
+networks:
+  curso-administracao-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.0/16
