@@ -13,7 +13,7 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       # - postgres:/var/lib/postgresql/data
-      - /home/brav/Documentos/Cursos/2022/Vue_vuex_Django/backend/BD/BDPostgres:/var/lib/postgresql/data
+      - ../backend/BD/BDPostgres:/var/lib/postgresql/data
       # - ./BD_BKP/:/home
     networks:
       curso-administracao-network:
@@ -24,10 +24,6 @@ services:
       context: .
       dockerfile: ./curso_pgadmin.dockerfile
     container_name: curso_administracao_pgadmin
-    environment:
-      USER_PASSWORD: "12345678"
-      PGADMIN_DEFAULT_EMAIL: "nabucodonozor2@gmail.com"
-      PGADMIN_DEFAULT_PASSWORD: "12345678"
     ports:
       - "8000:80"
     depends_on:
@@ -35,7 +31,7 @@ services:
     networks:
       curso-administracao-network:
         ipv4_address: 172.30.0.4
-  
+
   curso-administracao-backend-compose:
     build:
       context: .
@@ -50,7 +46,7 @@ services:
     networks:
       curso-administracao-network:
         ipv4_address: 172.30.0.2
-  
+
   curso-frontend-compose:
     build:
       context: .
